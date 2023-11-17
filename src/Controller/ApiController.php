@@ -19,8 +19,14 @@ class ApiController extends AbstractController
     )
     {
     }
+    #[Route('/api', name: 'app_api_test_get_1',methods: ['GET'])]
+    public function testGet1(): Response
+    {
+        dd(1);
+    }
 
-    #[Route('/api/test/get', name: 'app_api_test_get')]
+
+    #[Route('/api/test/get', name: 'app_api_test_get',methods: ['GET'])]
     public function testGet(): Response
     {
         return new JsonResponse(['test' => "value"]);
