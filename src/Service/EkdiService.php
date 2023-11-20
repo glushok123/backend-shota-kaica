@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-class TestService
+class EkdiService
 {
     private $serializer;
 
@@ -31,7 +31,7 @@ class TestService
         $this->serializer = new Serializer([$normalizer, new DateTimeNormalizer(), new ObjectNormalizer()]);
     }
 
-    public function serialize($entity, $dto, array $ignoredAttribute = [], array $onlyAttribute = [], array $addAttribute = [])
+    public function serialize($entity, array $ignoredAttribute = [], array $onlyAttribute = [], array $addAttribute = [])
     {
         $conditionOnlyAttribute = empty($onlyAttribute) ? [null] : [AbstractNormalizer::ATTRIBUTES => $onlyAttribute];
         $conditionIgnoredAttribute = empty($ignoredAttribute) ? [null] : [AbstractNormalizer::IGNORED_ATTRIBUTES => $ignoredAttribute];
@@ -44,18 +44,56 @@ class TestService
         ], $conditionOnlyAttribute, $conditionIgnoredAttribute);
         $normalize = array_merge($this->serializer->normalize($entity, null, $condition), $addAttribute);
 
-        return $this->serializer->denormalize(
-            $normalize, $dto
-        );
+        return $normalize;
     }
 
-    public function insertDbEkdi()
-    {
-        foreach ($this->collectionEkdi as $item) {
-            $ekdi = new Ekdi();
-            $ekdi->setName($item['Наименование']);
-            $ekdi->setCode($item['Код']);
-            $this->ekdiRepository->save($ekdi);
+    public function getEkdi1(){
+        $collectionEkdi = [];
+        $ekdis = $this->ekdiRepository->getCollectionEkdi1();
+
+        foreach ($ekdis as $ekdi){
+            $collectionEkdi[] = $this->serialize($ekdi);
         }
+
+        return $collectionEkdi;
+    }
+
+    public function getEkdi2(string $ekdi1){
+        $collectionEkdi = [];
+        $value = substr($ekdi1, 0, 2);
+        $ekdis = $this->ekdiRepository->getCollectionEkdi2($value);
+
+        foreach ($ekdis as $ekdi){
+            if ($ekdi->getCode() == $ekdi1) continue;
+            $collectionEkdi[] = $this->serialize($ekdi);
+        }
+
+        return $collectionEkdi;
+    }
+
+    public function getEkdi3(string $ekdi2){
+        $collectionEkdi = [];
+        $value = substr($ekdi2, 0, 5);
+        $ekdis = $this->ekdiRepository->getCollectionEkdi3($value);
+
+        foreach ($ekdis as $ekdi){
+            if ($ekdi->getCode() == $ekdi2) continue;
+            $collectionEkdi[] = $this->serialize($ekdi);
+        }
+
+        return $collectionEkdi;
+    }
+
+    public function getEkdi4(string $ekdi3){
+        $collectionEkdi = [];
+        $value = substr($ekdi3, 0, 8);
+        $ekdis = $this->ekdiRepository->getCollectionEkdi4($value);
+
+        foreach ($ekdis as $ekdi){
+            if ($ekdi->getCode() == $ekdi3) continue;
+            $collectionEkdi[] = $this->serialize($ekdi);
+        }
+
+        return $collectionEkdi;
     }
 }
