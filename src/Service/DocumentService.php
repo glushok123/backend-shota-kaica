@@ -70,10 +70,10 @@ class DocumentService
         $document->setNumberList($request->get('listCase'));
         $document->setName($request->get('name'));
         $document->setAnatation($request->get('fond'));
-        $document->setEkdi1($request->get('ekd1'));
-        $document->setEkdi2($request->get('ekd2'));
-        $document->setEkdi3($request->get('ekd3'));
-        $document->setEkdi4($request->get('ekd4'));
+        $document->setEkdi1($this->ekdiRepository->findOneBy(['id' => $request->get('ekd1')]));
+        $document->setEkdi2($this->ekdiRepository->findOneBy(['id' => $request->get('ekd2')]));
+        $document->setEkdi3($this->ekdiRepository->findOneBy(['id' => $request->get('ekd3')]));
+        $document->setEkdi4($this->ekdiRepository->findOneBy(['id' => $request->get('ekd4')]));
         $document->setNameFile($request->get('nameFile'));
 
         $this->documetRepository->save($document);
