@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Controller;
 
 use App\Dto\TestDto;
@@ -14,8 +15,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+header("Access-Control-Allow-Headers: X-Requested-With");
+
 class ApiController extends AbstractController
 {
+
     public function __construct(
         private readonly TestService                    $testService,
         private readonly EkdiService                    $ekdiService,
@@ -23,6 +29,7 @@ class ApiController extends AbstractController
     {
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+        header("Access-Control-Allow-Headers: X-Requested-With");
     }
 
     #[Route('/api', name: 'app_api_test_get_1',methods: ['GET'])]
