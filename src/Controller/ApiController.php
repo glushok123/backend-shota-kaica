@@ -22,6 +22,8 @@ class ApiController extends AbstractController
     )
     {
         header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST');
+        header("Access-Control-Allow-Headers: X-Requested-With");
     }
 
     #[Route('/api', name: 'app_api_test_get_1',methods: ['GET'])]
