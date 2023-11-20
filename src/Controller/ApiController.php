@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Dto\TestDto;
+use App\Service\DocumentService;
 use App\Service\EkdiService;
 use App\Service\TestService;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,7 @@ class ApiController extends AbstractController
 
     public function __construct(
         private readonly EkdiService                    $ekdiService,
+        private readonly DocumentService                $documentService,
     )
     {
         header('Access-Control-Allow-Origin: *');
@@ -76,6 +78,20 @@ class ApiController extends AbstractController
     public function insertDbEkdi4(Request $request): Response
     {
         $data = $this->ekdiService->getEkdi4($request->get('ekdi'));
+        return new JsonResponse($data);
+    }
+
+    #[Route('/api/save/case', name: 'app_api_save_case',methods: ['POST'])]
+    public function saveCase(Request $request): Response
+    {
+        $data = $this->documentService->saveCase($request);
+        return new JsonResponse($data);
+    }
+
+    #[Route('/api/get/case', name: 'app_api_search_case',methods: ['POST'])]
+    public function searchCase(Request $request): Response
+    {
+        $data = $this->documentService->searchCase($request);
         return new JsonResponse($data);
     }
 }
