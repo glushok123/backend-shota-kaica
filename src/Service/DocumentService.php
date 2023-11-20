@@ -70,6 +70,7 @@ class DocumentService
         $document->setNumberList($request->get('listCase'));
         $document->setName($request->get('name'));
         $document->setAnatation($request->get('fond'));
+        $document->setGeography($request->get('geography'));
         $document->setEkdi1($this->ekdiRepository->findOneBy(['id' => $request->get('ekd1')]));
         $document->setEkdi2($this->ekdiRepository->findOneBy(['id' => $request->get('ekd2')]));
         $document->setEkdi3($this->ekdiRepository->findOneBy(['id' => $request->get('ekd3')]));
