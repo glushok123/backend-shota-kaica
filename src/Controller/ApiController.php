@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 use App\Dto\TestDto;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Service\DocumentService;
 use App\Service\EkdiService;
 use App\Service\TestService;
@@ -15,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
@@ -26,6 +29,8 @@ class ApiController extends AbstractController
     public function __construct(
         private readonly EkdiService                    $ekdiService,
         private readonly DocumentService                $documentService,
+        private readonly UserPasswordHasherInterface    $passwordHasher,
+        private readonly UserRepository                 $userRepository
     )
     {
         header('Access-Control-Allow-Origin: *');
@@ -34,9 +39,19 @@ class ApiController extends AbstractController
     }
 
     #[Route('/api', name: 'app_api_test_get_1',methods: ['GET'])]
-    public function testGet1(): Response
+    public function testGet1()
     {
-        dd(1);
+        $user = new User();
+        $user->setEmail('admin@admin.ru');
+        $plaintextPassword = '12345678';
+
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            $plaintextPassword
+        );
+        $user->setPassword($hashedPassword);
+
+        $this->userRepository->save($user);
     }
 
 
