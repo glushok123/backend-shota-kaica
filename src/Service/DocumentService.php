@@ -56,7 +56,7 @@ class DocumentService
     {
         $document = $this->documetRepository->findOneBy([
             'fond' => $request->get('fond'),
-            'opis' => $request->get('fond'),
+            'opis' => $request->get('opis'),
             'numberCase' => $request->get('case'),
         ]);
 
