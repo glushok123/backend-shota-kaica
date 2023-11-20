@@ -21,6 +21,7 @@ class ApiController extends AbstractController
         private readonly EkdiService                    $ekdiService,
     )
     {
+        header('Access-Control-Allow-Origin: *');
     }
 
     #[Route('/api', name: 'app_api_test_get_1',methods: ['GET'])]
