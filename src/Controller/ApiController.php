@@ -23,7 +23,6 @@ class ApiController extends AbstractController
 {
 
     public function __construct(
-        private readonly TestService                    $testService,
         private readonly EkdiService                    $ekdiService,
     )
     {
