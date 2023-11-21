@@ -76,6 +76,7 @@ class DocumentService
         $document->setEkdi3($this->ekdiRepository->findOneBy(['id' => $request->get('ekd3')]));
         $document->setEkdi4($this->ekdiRepository->findOneBy(['id' => $request->get('ekd4')]));
         $document->setNameFile($request->get('nameFile'));
+        $document->setUserGroup(empty($request->get('userGroup')) ? 'Отсутствие' : $request->get('userGroup'));
 
         $this->documetRepository->save($document);
 

@@ -50,6 +50,9 @@ class Documet
     #[ORM\Column(length: 255)]
     private ?string $nameFile = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $userGroup = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +198,18 @@ class Documet
     public function setNameFile(string $nameFile): static
     {
         $this->nameFile = $nameFile;
+
+        return $this;
+    }
+
+    public function getUserGroup(): ?string
+    {
+        return $this->userGroup;
+    }
+
+    public function setUserGroup(string $userGroup): static
+    {
+        $this->userGroup = $userGroup;
 
         return $this;
     }

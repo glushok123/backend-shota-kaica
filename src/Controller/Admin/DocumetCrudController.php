@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Documet;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -16,6 +17,15 @@ class DocumetCrudController extends AbstractCrudController
         return Documet::class;
     }
 
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('fond')
+            ->add('opis')
+            ->add('numberCase')
+            ->add('userGroup')
+            ;
+    }
 
     public function configureFields(string $pageName): iterable
     {
@@ -29,6 +39,7 @@ class DocumetCrudController extends AbstractCrudController
             TextField::new('anatation', 'Анатация'),
             TextField::new('geography', 'География'),
             TextField::new('nameFile', 'Название файла'),
+            TextField::new('userGroup', 'группа Пользователя'),
 
             AssociationField::new('ekdi1', 'ЕКДИ №1')
                 ->autocomplete(),
