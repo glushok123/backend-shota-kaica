@@ -31,14 +31,14 @@ class DocumetCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->setDisabled(),
-            TextField::new('fond', 'Фонд'),
-            TextField::new('opis', 'Опись'),
-            TextField::new('numberCase', 'Дело'),
+            TextField::new('fond', 'Фонд')->setDisabled(),
+            TextField::new('opis', 'Опись')->setDisabled(),
+            TextField::new('numberCase', 'Дело')->setDisabled(),
             TextField::new('numberList', 'Листы'),
             TextField::new('name', 'Название'),
             TextField::new('anatation', 'Анатация'),
             TextField::new('geography', 'География'),
-            TextField::new('nameFile', 'Название файла'),
+            TextField::new('nameFile', 'Название файла')->setDisabled(),
             TextField::new('userGroup', 'группа Пользователя'),
 
             AssociationField::new('ekdi1', 'ЕКДИ №1')
