@@ -30,7 +30,7 @@ class DocumetCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->setDisabled(),
             TextField::new('fond', 'Фонд'),
             TextField::new('opis', 'Опись'),
             TextField::new('numberCase', 'Дело'),
