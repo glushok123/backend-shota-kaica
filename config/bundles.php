@@ -12,4 +12,5 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+    Denisok94\SymfonyExportXlsxBundle\Denisok94SymfonyExportXlsxBundle::class => ['all' => true],
 ];

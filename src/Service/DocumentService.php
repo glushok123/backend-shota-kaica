@@ -25,7 +25,7 @@ class DocumentService
     public function __construct(
         private readonly EntityManagerInterface     $entityManager,
         private readonly EkdiRepository             $ekdiRepository,
-        private readonly DocumetRepository          $documetRepository
+        private readonly DocumetRepository          $documetRepository,
     )
     {
         $metadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
@@ -77,6 +77,9 @@ class DocumentService
         $document->setEkdi4($this->ekdiRepository->findOneBy(['id' => $request->get('ekd4')]));
         $document->setNameFile($request->get('nameFile'));
         $document->setUserGroup(empty($request->get('userGroup')) ? 'Отсутствие' : $request->get('userGroup'));
+        $document->setDeadlineDates($request->get('deadlineDates'));
+        $document->setYearStart($request->get('yearStart'));
+        $document->setYearEnd($request->get('yearEnd'));
 
         $this->documetRepository->save($document);
 
@@ -119,5 +122,37 @@ class DocumentService
             'status' => 'success',
             'message' => 'Дело не найдено',
         ];
+    }
+
+    public function getCollectionDocuments(Request $request)
+    {
+        $count = 1;
+        $documentCollect = [];
+        $documents = $this->documetRepository->findAll();
+        foreach ($documents as $document){
+            $documentCollect[] = [
+                '№' => $count,
+                'Дело' => $document->getNumberCase(),
+                'Листы дела' => $document->getNumberList(),
+                'Наименование' => $document->getName(),
+                'Аннотация' => $document->getAnatation(),
+                'География.Населенный пункт, улица' => $document->getGeography(),
+                'Крайние даты' => $document->getDeadlineDates(),
+                'Точный год начала' => $document->getYearStart(),
+                'Точный год окончания' => $document->getYearEnd(),
+                'Классификация по ЕКДИ.Классификация по ЕКДИ' =>
+                    $document->getEkdi1()->getName() . '\\' .
+                    $document->getEkdi2()->getName() . '\\' .
+                    $document->getEkdi3()->getName() . '\\' .
+                    $document->getEkdi4()->getName() . '\\',
+                'Показывать на сайте?' => 'да',
+                'Документ отсканирован полностью?' => 'да',
+                'Файл' => $document->getNameFile(),
+            ];
+
+            $count += 1;
+        }
+
+        return $documentCollect;
     }
 }

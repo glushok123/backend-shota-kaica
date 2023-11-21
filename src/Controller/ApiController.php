@@ -18,6 +18,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Denisok94\SymfonyExportXlsxBundle\Service\XlsxService;
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
@@ -30,7 +32,8 @@ class ApiController extends AbstractController
         private readonly EkdiService                    $ekdiService,
         private readonly DocumentService                $documentService,
         private readonly UserPasswordHasherInterface    $passwordHasher,
-        private readonly UserRepository                 $userRepository
+        private readonly UserRepository                 $userRepository,
+        private readonly XlsxService                    $xlsxService,
     )
     {
         header('Access-Control-Allow-Origin: *');
@@ -108,5 +111,24 @@ class ApiController extends AbstractController
     {
         $data = $this->documentService->searchCase($request);
         return new JsonResponse($data);
+    }
+
+    #[Route('/api/get/generate/exel', name: 'app_api_search_case',methods: ['GET'])]
+    public function generateExel(Request $request)
+    {
+
+        $data = $this->documentService->getCollectionDocuments($request);
+
+        $fileName = 'my_first_excel.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+        $this->xlsxService->setFile($temp_file)->open();
+
+        foreach ($data as $line) {
+            $this->xlsxService->write($line);
+        }
+
+        $this->xlsxService->close();
+
+        return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
     }
 }

@@ -53,6 +53,15 @@ class Documet
     #[ORM\Column(length: 255)]
     private ?string $userGroup = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $deadlineDates = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $yearStart = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $yearEnd = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,6 +219,42 @@ class Documet
     public function setUserGroup(string $userGroup): static
     {
         $this->userGroup = $userGroup;
+
+        return $this;
+    }
+
+    public function getDeadlineDates(): ?string
+    {
+        return $this->deadlineDates;
+    }
+
+    public function setDeadlineDates(string $deadlineDates): static
+    {
+        $this->deadlineDates = $deadlineDates;
+
+        return $this;
+    }
+
+    public function getYearStart(): ?string
+    {
+        return $this->yearStart;
+    }
+
+    public function setYearStart(?string $yearStart): static
+    {
+        $this->yearStart = $yearStart;
+
+        return $this;
+    }
+
+    public function getYearEnd(): ?string
+    {
+        return $this->yearEnd;
+    }
+
+    public function setYearEnd(?string $yearEnd): static
+    {
+        $this->yearEnd = $yearEnd;
 
         return $this;
     }
