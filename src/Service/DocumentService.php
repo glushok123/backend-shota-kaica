@@ -98,7 +98,6 @@ class DocumentService
         ]);
 
         if (!empty($document)){
-            $document = new Documet();
             return [
                 'status' => 'success',
                 'message' => 'Дело найдено в БД, данные востановлены',
