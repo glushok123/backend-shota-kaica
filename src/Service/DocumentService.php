@@ -133,6 +133,10 @@ class DocumentService
         $documentCollect = [];
         $documents = $this->documetRepository->findAll();
         foreach ($documents as $document){
+            $edkd1 = empty($document->getEkdi1()) ? '' : $document->getEkdi1()->getName();
+            $edkd2 = empty($document->getEkdi2()) ? '' : $document->getEkdi2()->getName();
+            $edkd3 = empty($document->getEkdi3()) ? '' : $document->getEkdi3()->getName();
+            $edkd4 = empty($document->getEkdi4()) ? '' : $document->getEkdi4()->getName();
             $documentCollect[] = [
                 '№' => $count,
                 'Дело' => $document->getNameCase(),
@@ -144,10 +148,10 @@ class DocumentService
                 'Точный год начала' => $document->getYearStart(),
                 'Точный год окончания' => $document->getYearEnd(),
                 'Классификация по ЕКДИ.Классификация по ЕКДИ' =>
-                    $document->getEkdi1()->getName() . '\\' .
-                    $document->getEkdi2()->getName() . '\\' .
-                    $document->getEkdi3()->getName() . '\\' .
-                    $document->getEkdi4()->getName(),
+                    $edkd1 . '\\' .
+                    $edkd2 . '\\' .
+                    $edkd3 . '\\' .
+                    $edkd4,
                 'Показывать на сайте?' => 'да',
                 'Документ отсканирован полностью?' => 'да',
                 'Файл' => $document->getNameFile(),
