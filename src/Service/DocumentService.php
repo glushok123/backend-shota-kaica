@@ -114,6 +114,9 @@ class DocumentService
                     'ekd3' => empty($document->getEkdi3()) ? null :$document->getEkdi3()->getId(),
                     'ekd4' => empty($document->getEkdi4()) ? null :$document->getEkdi4()->getId(),
                     'nameFile' => $document->getNameFile(),
+                    'deadlineDates' => $document->getDeadlineDates(),
+                    'yearStart' => $document->getYearStart(),
+                    'yearEnd' => $document->getYearEnd(),
                 ]
             ];
         }
