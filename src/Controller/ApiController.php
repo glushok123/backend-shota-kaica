@@ -114,7 +114,7 @@ class ApiController extends AbstractController
         return new JsonResponse($data);
     }
 
-    #[Route('/api/get/generate/exel', name: 'app_api_search_case',methods: ['GET'])]
+    #[Route('/api/get/generate/exel', name: 'app_api_generate_exel',methods: ['GET'])]
     public function generateExel(Request $request)
     {
 
