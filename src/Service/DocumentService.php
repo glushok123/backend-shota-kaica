@@ -110,10 +110,10 @@ class DocumentService
                     'listCase' => $document->getNumberList(),
                     'name' => $document->getName(),
                     'anatation' => $document->getAnatation(),
-                    'ekd1' => $document->getEkdi1()->getId(),
-                    'ekd2' => $document->getEkdi2()->getId(),
-                    'ekd3' => $document->getEkdi3()->getId(),
-                    'ekd4' => $document->getEkdi4()->getId(),
+                    'ekd1' => empty($document->getEkdi1()) ? null : $document->getEkdi1()->getId(),
+                    'ekd2' => empty($document->getEkdi2()) ? null :$document->getEkdi2()->getId(),
+                    'ekd3' => empty($document->getEkdi3()) ? null :$document->getEkdi3()->getId(),
+                    'ekd4' => empty($document->getEkdi4()) ? null :$document->getEkdi4()->getId(),
                     'nameFile' => $document->getNameFile(),
                 ]
             ];
