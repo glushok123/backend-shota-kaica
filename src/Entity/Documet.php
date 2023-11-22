@@ -23,16 +23,16 @@ class Documet
     #[ORM\Column(length: 255)]
     private ?string $numberCase = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $numberList = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $anatation = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $geography = null;
 
     #[ORM\ManyToOne(inversedBy: 'documets1')]
@@ -47,13 +47,13 @@ class Documet
     #[ORM\ManyToOne(inversedBy: 'documents4')]
     private ?Ekdi $ekdi4 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $nameFile = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $userGroup = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $deadlineDates = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -61,6 +61,9 @@ class Documet
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $yearEnd = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $nameCase = null;
 
     public function getId(): ?int
     {
@@ -255,6 +258,18 @@ class Documet
     public function setYearEnd(?string $yearEnd): static
     {
         $this->yearEnd = $yearEnd;
+
+        return $this;
+    }
+
+    public function getNameCase(): ?string
+    {
+        return $this->nameCase;
+    }
+
+    public function setNameCase(string $nameCase): static
+    {
+        $this->nameCase = $nameCase;
 
         return $this;
     }

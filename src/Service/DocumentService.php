@@ -93,19 +93,20 @@ class DocumentService
     {
         $document = $this->documetRepository->findOneBy([
             'fond' => $request->get('fond'),
-            'opis' => $request->get('fond'),
+            'opis' => $request->get('opis'),
             'case' => $request->get('case'),
         ]);
 
         if (!empty($document)){
             $document = new Documet();
             return [
-                'status' => 'warning',
+                'status' => 'success',
                 'message' => 'Дело найдено в БД, данные востановлены',
                 'data' => [
                     'fond' => $document->getFond(),
                     'opis' => $document->getOpis(),
                     'case' => $document->getNumberCase(),
+                    'nameCase' => $document->getNameCase(),
                     'listCase' => $document->getNumberList(),
                     'name' => $document->getName(),
                     'anatation' => $document->getAnatation(),
@@ -119,7 +120,7 @@ class DocumentService
         }
 
         return [
-            'status' => 'success',
+            'status' => 'warning',
             'message' => 'Дело не найдено',
         ];
     }
@@ -132,7 +133,7 @@ class DocumentService
         foreach ($documents as $document){
             $documentCollect[] = [
                 '№' => $count,
-                'Дело' => $document->getNumberCase(),
+                'Дело' => $document->getNameCase(),
                 'Листы дела' => $document->getNumberList(),
                 'Наименование' => $document->getName(),
                 'Аннотация' => $document->getAnatation(),
@@ -144,7 +145,7 @@ class DocumentService
                     $document->getEkdi1()->getName() . '\\' .
                     $document->getEkdi2()->getName() . '\\' .
                     $document->getEkdi3()->getName() . '\\' .
-                    $document->getEkdi4()->getName() . '\\',
+                    $document->getEkdi4()->getName(),
                 'Показывать на сайте?' => 'да',
                 'Документ отсканирован полностью?' => 'да',
                 'Файл' => $document->getNameFile(),

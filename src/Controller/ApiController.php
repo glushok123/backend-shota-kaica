@@ -29,6 +29,7 @@ class ApiController extends AbstractController
 {
 
     public function __construct(
+        private readonly TestService                    $testService,
         private readonly EkdiService                    $ekdiService,
         private readonly DocumentService                $documentService,
         private readonly UserPasswordHasherInterface    $passwordHasher,
@@ -130,5 +131,11 @@ class ApiController extends AbstractController
         $this->xlsxService->close();
 
         return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
+    }
+
+    #[Route('/api/insert/case', name: 'app_api_inser_case',methods: ['GET'])]
+    public function insertCase()
+    {
+        $this->testService->insertDbCase();
     }
 }
