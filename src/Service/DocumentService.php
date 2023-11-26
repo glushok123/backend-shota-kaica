@@ -131,7 +131,12 @@ class DocumentService
     {
         $count = 1;
         $documentCollect = [];
-        $documents = $this->documetRepository->findAll();
+        if (!empty($request->get('nameFond'))){
+            $documents = $this->documetRepository->findBy(['fond' => $request->get('nameFond')]);
+        }else{
+            $documents = $this->documetRepository->findAll();
+        }
+
         foreach ($documents as $document){
             $edkd1 = empty($document->getEkdi1()) ? '' : $document->getEkdi1()->getName();
             $edkd2 = empty($document->getEkdi2()) ? '' : $document->getEkdi2()->getName();

@@ -133,7 +133,7 @@ class ApiController extends AbstractController
         return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
     }
 
-    #[Route('/api/insert/case', name: 'app_api_inser_case',methods: ['GET'])]
+    #[Route('/api/insert/case', name: 'app_api_insert_case',methods: ['GET'])]
     public function insertCase()
     {
         $this->testService->insertDbCase();

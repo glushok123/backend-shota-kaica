@@ -64,9 +64,52 @@ class TestService
 
     public function insertDbCase()
     {
-        $fondInfo = include_once($_SERVER['DOCUMENT_ROOT'] . '/data/952.php');
+        ini_set('max_execution_time', 600); //600 seconds
+        ini_set('memory_limit','8096M');
+
+        $accessArray = [
+            'Р-2278',
+            'Р-2433',
+            'Р-2467',
+            'Р-2592',
+            'Р-2592',
+            'Р-53',
+            'Р-1205',
+            'Р-1299',
+            'Р-413',
+            'Р-871',
+            '694',
+            '921',
+            '927',
+            '930',
+            '931',
+            '936',
+            '939',
+            '944',
+            '945',
+            '947',
+            '952',
+            '953',
+            '956',
+            '958',
+            '960',
+        ];
+
+
+        //$fondInfo = include_once($_SERVER['DOCUMENT_ROOT'] . '/data/952.php');
+        $upload1 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 1.json');
+        $upload2 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 2.json');
+        $upload3 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 3.json');
+
+        $data1 = json_decode($upload1, true);
+        $data2 = json_decode($upload2, true);
+        $data3 = json_decode($upload3, true);
+
+        $fondInfo = array_merge($data1, $data2, $data3);
 
         foreach ($fondInfo as $infoCase) {
+            if(!in_array($infoCase['Номер фонда'], $accessArray)) continue;
+
             $document = $this->documetRepository->findOneBy([
                 'fond' => $infoCase['Номер фонда'],
                 'opis' => $infoCase['Номер описи'],
@@ -82,13 +125,14 @@ class TestService
             $document->setNumberCase($infoCase['Номер дела']);
             $document->setNameCase($infoCase['Дело']);
             $document->setName($infoCase['Заголовок']);
+            $document->setAnatation($infoCase['Заголовок']);
 
             $document->setDeadlineDates($infoCase['Хронологические ']);
             $document->setYearStart($infoCase['Точный год начала']);
             $document->setYearEnd($infoCase['Точный год оконча']);
 
-            $document->setNumberList($infoCase['Количество листов']);
-            $document->setNameFile($infoCase['Номер фонда'] . '_' . $infoCase['Номер описи'] . '_' . $infoCase['Номер дела']);
+            $document->setNumberList(isset($infoCase['Количество листов']) ? '1-' . $infoCase['Количество листов'] : '1-');
+            $document->setNameFile($infoCase['Номер фонда'] . '_' . $infoCase['Номер описи'] . '_' . preg_replace("/\s+/", "", $infoCase['Номер дела']));
 
             $this->documetRepository->save($document);
         }
