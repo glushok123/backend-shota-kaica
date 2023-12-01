@@ -95,20 +95,31 @@ class TestService
             '960',
         ];
 
-
         //$fondInfo = include_once($_SERVER['DOCUMENT_ROOT'] . '/data/952.php');
-        $upload1 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 1.json');
-        $upload2 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 2.json');
-        $upload3 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 3.json');
+        //$upload1 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 1.json');
+        //$upload2 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 2.json');
+        //$upload3 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 3.json');
+        $upload4 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2433.json');
+        $upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592.json');
 
-        $data1 = json_decode($upload1, true);
-        $data2 = json_decode($upload2, true);
-        $data3 = json_decode($upload3, true);
+        $data1 = json_decode($upload4, true);
+        $data2 = json_decode($upload5, true);
+        //$data3 = json_decode($upload3, true);
 
-        $fondInfo = array_merge($data1, $data2, $data3);
+        $fondInfo = array_merge($data1, $data2);
 
         foreach ($fondInfo as $infoCase) {
+            if(empty($infoCase['Номер фонда'])) continue;
+            if(empty($infoCase['Номер дела'])) continue;
             if(!in_array($infoCase['Номер фонда'], $accessArray)) continue;
+
+            if($infoCase['Номер дела'] === 'Номер дела') continue;
+
+            if($infoCase['Номер фонда'] === 'Р-2433'){
+                if((int) $infoCase['Номер дела'] > 700){
+                    continue;
+                }
+            }
 
             $document = $this->documetRepository->findOneBy([
                 'fond' => $infoCase['Номер фонда'],
@@ -123,7 +134,13 @@ class TestService
             $document->setFond($infoCase['Номер фонда']);
             $document->setOpis($infoCase['Номер описи']);
             $document->setNumberCase($infoCase['Номер дела']);
-            $document->setNameCase($infoCase['Дело']);
+
+            if (strlen($infoCase['Дело']) > 25){
+                $document->setNameCase($infoCase['Дело']);
+            }else{
+                $delo = 'Ф.' . $infoCase['Номер фонда'] . ' ' . 'Оп.3' . ' ' . 'Д.' . $infoCase['Номер дела'] . ' ' . $infoCase['Заголовок'];
+                $document->setNameCase($delo);
+            }
             $document->setName($infoCase['Заголовок']);
             $document->setAnatation($infoCase['Заголовок']);
 
