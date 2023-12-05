@@ -128,28 +128,32 @@ class TestService
             ]);
 
             if (empty($document)){
-                $document = new Documet();
+                //$document = new Documet();
+
+                continue;
             }
 
-            $document->setFond($infoCase['Номер фонда']);
-            $document->setOpis($infoCase['Номер описи']);
-            $document->setNumberCase($infoCase['Номер дела']);
+            //$document->setFond($infoCase['Номер фонда']);
+            //$document->setOpis($infoCase['Номер описи']);
+            //$document->setNumberCase($infoCase['Номер дела']);
 
-            if (strlen($infoCase['Дело']) > 25){
-                $document->setNameCase($infoCase['Дело']);
+            /*if (strlen($infoCase['Дело']) > 25){
+
             }else{
                 $delo = 'Ф.' . $infoCase['Номер фонда'] . ' ' . 'Оп.3' . ' ' . 'Д.' . $infoCase['Номер дела'] . ' ' . $infoCase['Заголовок'];
                 $document->setNameCase($delo);
-            }
-            $document->setName($infoCase['Заголовок']);
-            $document->setAnatation($infoCase['Заголовок']);
+            }*/
 
-            $document->setDeadlineDates($infoCase['Хронологические ']);
-            $document->setYearStart($infoCase['Точный год начала']);
-            $document->setYearEnd($infoCase['Точный год оконча']);
+            $document->setNameCase($infoCase['Дело']);
+            //$document->setName($infoCase['Заголовок']);
+            //$document->setAnatation($infoCase['Заголовок']);
 
-            $document->setNumberList(isset($infoCase['Количество листов']) ? '1-' . $infoCase['Количество листов'] : '1-');
-            $document->setNameFile($infoCase['Номер фонда'] . '_' . $infoCase['Номер описи'] . '_' . preg_replace("/\s+/", "", $infoCase['Номер дела']));
+            //$document->setDeadlineDates($infoCase['Хронологические ']);
+            //$document->setYearStart($infoCase['Точный год начала']);
+            //$document->setYearEnd($infoCase['Точный год оконча']);
+
+            //$document->setNumberList(isset($infoCase['Количество листов']) ? '1-' . $infoCase['Количество листов'] : '1-');
+            //$document->setNameFile($infoCase['Номер фонда'] . '_' . $infoCase['Номер описи'] . '_' . preg_replace("/\s+/", "", $infoCase['Номер дела']));
 
             $this->documetRepository->save($document);
         }
