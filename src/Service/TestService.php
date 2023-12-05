@@ -100,15 +100,18 @@ class TestService
         //$upload2 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 2.json');
         //$upload3 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 3.json');
         //$upload4 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2433_new.json');
-        $upload4 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2433_3_new.json');
+        //$upload4 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2433_3_new.json');
         //$upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592.json');
-        $upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592_3_new.json');
+        //$upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592_3_new.json');
+        $upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592_1_new.json');
 
-        $data1 = json_decode($upload4, true);
+        //$data1 = json_decode($upload4, true);
         $data2 = json_decode($upload5, true);
         //$data3 = json_decode($upload3, true);
 
-        $fondInfo = array_merge($data1, $data2);
+
+        //dd(count($data2));
+        $fondInfo = $data2;//array_merge($data1, $data2);
 
         foreach ($fondInfo as $infoCase) {
             if(empty($infoCase['Номер фонда'])) continue;
