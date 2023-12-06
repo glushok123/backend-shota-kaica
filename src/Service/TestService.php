@@ -95,18 +95,149 @@ class TestService
             '960',
         ];
 
+        $caseList694 = [
+            "272",
+            "273",
+            "274",
+            "275",
+            "276",
+            "278",
+            "279",
+            "280",
+            "281",
+            "282",
+            "283",
+            "284",
+            "285",
+            "286",
+            "287",
+            "289",
+            "290",
+            "291",
+            "292",
+            "293",
+            "295",
+            "309",
+            "310",
+            "311",
+            "313",
+            "314",
+            "315",
+            "316",
+            "317",
+            "318",
+            "319",
+            "320",
+            "321",
+            "324",
+            "325",
+            "326",
+            "327",
+            "328",
+            "329",
+            "330",
+            "331",
+            "332",
+            "333",
+            "334",
+            "335",
+            "336",
+            "430",
+            "798",
+            "799",
+            "873",
+            "888",
+            "890",
+            "1157",
+            "1231",
+            "1253",
+            "1254",
+            "1256",
+            "1257",
+            "1258",
+            "1259",
+            "1260",
+            "1261",
+            "1263",
+            "1264",
+            "1294",
+            "1299",
+            "1300",
+            "1302",
+            "1303",
+            "1304",
+            "1305",
+            "1306",
+            "1307",
+            "1308",
+            "1309",
+            "1310",
+            "1311",
+            "1312",
+            "1314",
+            "1315",
+            "1316",
+            "1317",
+            "1318",
+            "1319",
+            "1320",
+            "1321",
+            "1322",
+            "1323",
+            "1324",
+            "1325",
+            "1326",
+            "1327",
+            "1328",
+            "1329",
+            "1330",
+            "1331",
+            "1332",
+            "1333",
+            "1129 А",
+            "1173 А",
+            "1187 А",
+            "1194 А",
+            "11 А",
+            "11 Б",
+            "1205 А",
+            "1205 Б",
+            "1205 В",
+            "1205 Г",
+            "1205 Д",
+            "1206 А",
+            "1206 Б",
+            "1206 В",
+            "1206 Г",
+            "1207 А",
+            "1207 Б",
+            "1237 А",
+            "1240 А",
+            "1241 А",
+            "1241 Б",
+            "1242 А",
+            "207 А",
+            "596 А",
+            "755 А",
+            "803 А",
+            "81 А",
+            "872 А",
+            "893 А",
+            "999 А",
+        ];
+
         //$fondInfo = include_once($_SERVER['DOCUMENT_ROOT'] . '/data/952.php');
         //$upload1 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 1.json');
-        //$upload2 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 2.json');
+        $upload2 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 2.json');
         //$upload3 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка - 3.json');
         //$upload4 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2433_new.json');
         //$upload4 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2433_3_new.json');
         //$upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592.json');
         //$upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592_3_new.json');
-        $upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592_1_new.json');
+        //$upload5 = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/data/выгрузка Р-2592_1_new.json');
 
         //$data1 = json_decode($upload4, true);
-        $data2 = json_decode($upload5, true);
+        $data2 = json_decode($upload2, true);
         //$data3 = json_decode($upload3, true);
 
 
@@ -125,6 +256,9 @@ class TestService
                     continue;
                 }
             }
+            if($infoCase['Номер фонда'] !== '694'){
+                continue;
+            }
 
             $document = $this->documetRepository->findOneBy([
                 'fond' => $infoCase['Номер фонда'],
@@ -133,32 +267,24 @@ class TestService
             ]);
 
             if (empty($document)){
-                //$document = new Documet();
-
-                continue;
+                $document = new Documet();
             }
 
-            //$document->setFond($infoCase['Номер фонда']);
-            //$document->setOpis($infoCase['Номер описи']);
-            //$document->setNumberCase($infoCase['Номер дела']);
 
-            /*if (strlen($infoCase['Дело']) > 25){
-
-            }else{
-                $delo = 'Ф.' . $infoCase['Номер фонда'] . ' ' . 'Оп.3' . ' ' . 'Д.' . $infoCase['Номер дела'] . ' ' . $infoCase['Заголовок'];
-                $document->setNameCase($delo);
-            }*/
+            $document->setFond($infoCase['Номер фонда']);
+            $document->setOpis($infoCase['Номер описи']);
+            $document->setNumberCase($infoCase['Номер дела']);
 
             $document->setNameCase($infoCase['Дело']);
-            //$document->setName($infoCase['Заголовок']);
-            //$document->setAnatation($infoCase['Заголовок']);
+            $document->setName($infoCase['Заголовок']);
+            $document->setAnatation($infoCase['Заголовок']);
 
-            //$document->setDeadlineDates($infoCase['Хронологические ']);
-            //$document->setYearStart($infoCase['Точный год начала']);
-            //$document->setYearEnd($infoCase['Точный год оконча']);
+            $document->setDeadlineDates($infoCase['Хронологические ']);
+            $document->setYearStart($infoCase['Точный год начала']);
+            $document->setYearEnd($infoCase['Точный год оконча']);
 
-            //$document->setNumberList(isset($infoCase['Количество листов']) ? '1-' . $infoCase['Количество листов'] : '1-');
-            //$document->setNameFile($infoCase['Номер фонда'] . '_' . $infoCase['Номер описи'] . '_' . preg_replace("/\s+/", "", $infoCase['Номер дела']));
+            $document->setNumberList(isset($infoCase['Количество листов']) ? '1-' . $infoCase['Количество листов'] : '1-');
+            $document->setNameFile($infoCase['Номер фонда'] . '_' . $infoCase['Номер описи'] . '_' . preg_replace("/\s+/", "", $infoCase['Номер дела']));
 
             $this->documetRepository->save($document);
         }
