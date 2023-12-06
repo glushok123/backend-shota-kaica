@@ -248,6 +248,7 @@ class TestService
             if(empty($infoCase['Номер фонда'])) continue;
             if(empty($infoCase['Номер дела'])) continue;
             if(!in_array($infoCase['Номер фонда'], $accessArray)) continue;
+            if(!in_array($infoCase['Номер дела'], $caseList694)) continue;
 
             if($infoCase['Номер дела'] === 'Номер дела') continue;
 
